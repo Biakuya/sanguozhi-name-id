@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>三国志角色ID管理</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 8px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: white;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    tr:hover {
+      background-color: #f1f9ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>三国志战略版｜角色 ID 管理系统</h1>
+  <input type="text" id="searchInput" placeholder="搜索角色名称、官职、太守、ID..." onkeyup="searchTable()" />
+
+  <table id="characterTable">
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>官职</th>
+        <th>太守</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 数据将通过 JS 动态插入 -->
+    </tbody>
+  </table>
+
+  <script>
+    const data = [
+      { name: "潁川｜鯊琪瑪", position: "君主", governor: "許昌", id: "8055662" },
+      { name: "潁川｜秦太师", position: "丞相", governor: "", id: "7681787" },
+      { name: "杜詩芸", position: "大將軍", governor: "襄陽", id: "8055711" },
+      { name: "琦｜小帥", position: "太尉", governor: "鄴", id: "8043345" },
+      { name: "十三豹", position: "尚書令", governor: "", id: "8038283" },
+      { name: "朤｜高正", position: "驃騎將軍", governor: "江陵", id: "8054065" },
+      { name: "颍川｜阿羊", position: "衛將軍", governor: "", id: "8057630" },
+      { name: "琦lMann", position: "中書令", governor: "膚詩", id: "8045678" },
+      { name: "十三龍", position: "侍中", governor: "", id: "8033058" },
+      { name: "潁川｜聽風", position: "大司農", governor: "湘南", id: "8052600" },
+      { name: "穎川｜七七七", position: "太常", governor: "", id: "8051873" },
+      { name: "歐候高達", position: "大鴻臚", governor: "長沙", id: "7596249" },
+      { name: "琦｜蒼也", position: "太僕", governor: "", id: "8039475" },
+      { name: "穎川｜阿玥", position: "將作大臣", governor: "天水", id: "8052464" },
+      { name: "颍川｜春曉", position: "征東將軍", governor: "", id: "8057599" },
+      { name: "琦丨令狐子寧", position: "征南將軍", governor: "", id: "8045648" },
+      { name: "颖川｜青峰", position: "征西將軍", governor: "", id: "8051912" },
+      { name: "琦｜Yumi", position: "征北將軍", governor: "漢中", id: "8040077" }
+    ];
+
+    const tbody = document.querySelector("#characterTable tbody");
+
+    function renderTable(dataList) {
+      tbody.innerHTML = "";
+      dataList.forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.name}</td>
+          <td>${row.position}</td>
+          <td>${row.governor || "-"}</td>
+          <td>${row.id}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function searchTable() {
+      const keyword = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = data.filter(row =>
+        row.name.toLowerCase().includes(keyword) ||
+        row.position.toLowerCase().includes(keyword) ||
+        row.governor.toLowerCase().includes(keyword) ||
+        row.id.includes(keyword)
+      );
+      renderTable(filtered);
+    }
+
+    renderTable(data); // 初始渲染
+  </script>
+</body>
+</html>
